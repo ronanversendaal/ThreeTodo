@@ -14,6 +14,10 @@
     </v-btn>
     <v-toolbar-title>{{appTitle}}</v-toolbar-title>
     <v-spacer></v-spacer>
+    <v-btn @click="clearStorage"
+           icon>
+      <v-icon>error_outline</v-icon>
+    </v-btn>
     <v-btn :to="{name : 'settings'}"
            icon>
       <v-icon>settings</v-icon>
@@ -24,11 +28,20 @@
 </template>
 
 <script>
+
+import { LocalStorage } from 'quasar'
+
 export default {
   data: () => ({
     drawer: false,
     router: {}
   }),
+  methods: {
+    clearStorage() {
+      LocalStorage.clear()
+      location.reload()
+    }
+  },
   props: [
     'appTitle'
   ],

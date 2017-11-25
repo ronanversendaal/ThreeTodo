@@ -10,13 +10,13 @@
           <v-subheader>General settings</v-subheader>
           <v-list-tile avatar
                        v-ripple
-                       @click="setDaily">
+                       @click.native.stop="setTodoAmount">
             <v-list-tile-content>
               <v-list-tile-title>Amount of tasks</v-list-tile-title>
-              <v-list-tile-sub-title>Change the amount of days per period 
-                {{getSettings('todoAmount').daily}}
+              <v-list-tile-sub-title>Change the amount of days per period
               </v-list-tile-sub-title>
             </v-list-tile-content>
+            <todo-amount-modal :todoAmount="getSettings('todoAmount')"></todo-amount-modal>
           </v-list-tile>
         </v-list>
       </v-flex>
@@ -27,40 +27,27 @@
 </template>
 
 <script>
-import { LocalStorage } from 'quasar'
-import { mapGetters, mapActions } from 'vuex'
+import StoreService from '../../services/StoreService'
+import TodoAmountModal from '../Modal/Settings/TodoSettings/TodoAmountModal'
+
+import { ModalEventBus } from './../../main'
 
 export default {
+  mixins: [StoreService],
+  components: {TodoAmountModal},
   methods: {
-    ...mapActions([
-      'setSetting',
-      'setSettings',
-      'setConfig'
-    ]),
-    setDaily(key, value) {
-      this.getSettings('todoAmount').daily++
-      this.saveSettings()
-    },
-    loadSettings() {
-      var storedSettings = LocalStorage.get.item('settings-' + this.getConfig().store)
-
-      this.setSettings(storedSettings)
-    },
-    saveSettings() {
-      LocalStorage.set('settings-' + this.getConfig().store, this.getSettings())
+    setTodoAmount(key, value) {
+      ModalEventBus.$emit('open', true)
     }
-  },
-  computed: {
-    ...mapGetters([
-      'getConfig',
-      'getSettings'
-    ])
   },
   created() {
     this.setConfig({
       store: 'todo'
     })
     this.loadSettings()
+    ModalEventBus.$on('change-settings', (key) => {
+      this.saveSettings()
+    })
   }
 }
 

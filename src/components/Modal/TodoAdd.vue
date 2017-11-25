@@ -50,7 +50,7 @@
 import { ModalEventBus } from './../../main'
 
 export default {
-  data: () => {
+  data() {
     return {
       newTodo: {
         title: '',
@@ -59,7 +59,7 @@ export default {
       dialog: false
     }
   },
-  created: () => {
+  created() {
     ModalEventBus.$on('open', () => {
       this.dialog = true
     })
