@@ -33,18 +33,28 @@ import TodoAmountModal from '../Modal/Settings/TodoSettings/TodoAmountModal'
 import { ModalEventBus } from './../../main'
 
 export default {
-  mixins: [StoreService],
-  components: {TodoAmountModal},
+  mixins: [
+    StoreService
+  ],
+  components: {
+    TodoAmountModal
+  },
   methods: {
     setTodoAmount(key, value) {
       ModalEventBus.$emit('open', true)
     }
   },
   created() {
+    // Setup store config an load settings
     this.setConfig({
       store: 'todo'
     })
     this.loadSettings()
+
+    // Modal actions for reloading/saving settings on opening/closing
+    ModalEventBus.$on('dismiss', () => {
+      this.loadSettings()
+    })
     ModalEventBus.$on('change-settings', (key) => {
       this.saveSettings()
     })
