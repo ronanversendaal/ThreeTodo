@@ -1,12 +1,8 @@
+import TodoSettings from './settings/todo'
+
 const state = {
   settings: {
-    todo: {
-      todoAmount: {
-        daily: 0,
-        monthly: 0,
-        yearly: 0
-      }
-    }
+    todo: TodoSettings
   },
   config: {
     store: ''
@@ -24,7 +20,6 @@ const getters = {
     if (typeof key === 'undefined') {
       return state.settings[state.config.store]
     }
-    // console.log(state.config.store, key)
     return state.settings[state.config.store][key]
   }
 }
