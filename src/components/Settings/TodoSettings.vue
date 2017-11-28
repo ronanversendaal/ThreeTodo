@@ -56,7 +56,7 @@ export default {
       this.loadSettings()
     })
     ModalEventBus.$on('change-settings', (key) => {
-      this.saveSettings()
+      this.saveSettings(true)
     })
   }
 }

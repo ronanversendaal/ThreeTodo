@@ -1,8 +1,8 @@
 var TodoSettings = {
   todoAmount: {
-    daily: 0,
-    monthly: 0,
-    yearly: 0
+    daily: 3,
+    monthly: 3,
+    yearly: 3
   }
 }
 

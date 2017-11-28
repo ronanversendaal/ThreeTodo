@@ -7,7 +7,7 @@
       <div slot="header">{{ todo.title }}</div>
       <v-list class="todos px-2 pr-3">
 
-        <v-scale-transition name="out-in">
+        <transition-group name="slide-x-transition" tag="div" mode="out-in">
           <v-list-tile v-for="(subItem, subIndex) in todo.items" :key="subItem.title">
             <v-list-tile-action>
               <v-checkbox></v-checkbox>
@@ -22,7 +22,7 @@
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>
-        </v-scale-transition>
+        </transition-group>
       </v-list>
     </v-expansion-panel-content>
   </v-expansion-panel>
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     remove (index, subIndex) {
-      this.currentTodos[index].items.shift(subIndex, 1)
+      this.currentTodos[index].items.splice(subIndex, 1)
 
       this.collapsePanel(this.currentTodos[index])
       this.syncItems()
