@@ -34,21 +34,6 @@ const mutations = {
   },
   saveSettings: (state, payload) => {
     state.settings[state.config.store] = payload
-  },
-  resetSettings: (state, payload) => {
-
-    // Needs a solution where the initial state does not get the same values as the current state
-
-    // console.log(initialSettings, state.settings)
-    // for (let f in initialSettings) {
-    //   Vue.set(initialSettings[payload.store], f, state.settings[payload.store])
-    // }
-
-    // console.log(initialSettings, state.settings.todo)
-    // return initialSettings
-    // console.log('initial : ', initialSettings)
-    // state.settings[payload.store] = initialSettings[payload.store]
-    // console.log(initialSettings[payload.store])
   }
 }
 

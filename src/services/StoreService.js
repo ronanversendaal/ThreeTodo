@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 import settings from '../store/modules/settings'
 
+// Clone initial settings to return to default
 const initialSettings = _.clone(settings.state.settings)
 
 var StoreService = {

@@ -16,34 +16,40 @@ var TodoService = {
     this.getTodos()
   },
   methods: {
-    syncItems() {
+    syncItems(stores) {
       LocalStorage.set('todos', this.todos)
     },
     getTodos() {
       this.todos = LocalStorage.get.item('todos')
+      this.completed = LocalStorage.get.item('todos-completed')
     },
-    resetTodos() {
+    resetTodos(store) {
       // Set the default groups with empty items.
-      LocalStorage.set('todos', [
+      var defaults = [
         {
-          action: 'dailies',
+          action: 'daily',
           title: 'Daily',
           active: false,
           items: []
         },
         {
-          action: 'monthlies',
+          action: 'monthly',
           title: 'Monthly',
           active: false,
           items: []
         },
         {
-          action: 'yearlies',
+          action: 'yearly',
           title: 'Yearly',
           active: false,
           items: []
         }
-      ])
+      ]
+
+      LocalStorage.set('todos', defaults)
+      if (store) {
+        LocalStorage.set('todos-' + store, defaults)
+      }
     }
   }
 }
