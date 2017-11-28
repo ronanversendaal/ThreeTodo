@@ -53,10 +53,10 @@ export default {
 
     // Modal actions for reloading/saving settings on opening/closing
     ModalEventBus.$on('dismiss', () => {
-      this.loadSettings()
+      this.saveSettings(true)
     })
     ModalEventBus.$on('change-settings', (key) => {
-      this.saveSettings(true)
+      this.saveSettings()
     })
   }
 }
