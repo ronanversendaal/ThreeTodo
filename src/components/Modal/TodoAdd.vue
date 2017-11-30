@@ -54,7 +54,8 @@ export default {
     return {
       newTodo: {
         title: '',
-        period: ''
+        period: '',
+        completed: false
       },
       dialog: false
     }

@@ -4,7 +4,26 @@ var TodoService = {
 
   data() {
     return {
-      todos: []
+      todos: [
+        {
+          action: 'daily',
+          title: 'Daily',
+          active: false,
+          items: []
+        },
+        {
+          action: 'monthly',
+          title: 'Monthly',
+          active: false,
+          items: []
+        },
+        {
+          action: 'yearly',
+          title: 'Yearly',
+          active: false,
+          items: []
+        }
+      ]
     }
   },
   created() {
@@ -25,26 +44,7 @@ var TodoService = {
     },
     resetTodos(store) {
       // Set the default groups with empty items.
-      var defaults = [
-        {
-          action: 'daily',
-          title: 'Daily',
-          active: false,
-          items: []
-        },
-        {
-          action: 'monthly',
-          title: 'Monthly',
-          active: false,
-          items: []
-        },
-        {
-          action: 'yearly',
-          title: 'Yearly',
-          active: false,
-          items: []
-        }
-      ]
+      var defaults = this.todos
 
       LocalStorage.set('todos', defaults)
       if (store) {
