@@ -1,8 +1,10 @@
 import TodoSettings from './settings/todo'
+import PeriodSettings from './settings/period'
 
 const state = {
   settings: {
-    todo: TodoSettings
+    todo: TodoSettings,
+    period: PeriodSettings
   },
   config: {
     store: ''
