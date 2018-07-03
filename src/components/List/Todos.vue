@@ -91,6 +91,9 @@ export default {
       let completeState = this.currentTodos[index].items[subIndex].completed
 
       this.currentTodos[index].items[subIndex].completed = !completeState
+
+      // We'll have to do this because of unreactive copmonents after adding, todo: find alternative
+      this.$forceUpdate()
       this.syncItems()
     },
     collapsePanel (group) {

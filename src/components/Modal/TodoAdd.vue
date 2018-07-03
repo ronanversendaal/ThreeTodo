@@ -10,14 +10,16 @@
         <v-container grid-list-md>
           <form>
             <v-flex xs12>
-              <v-text-field v-model="newTodo.title" label="Name"
+              <v-flex xs12>
+                <!-- @todo item via settings -->
+                <v-select style="capitalize" v-model="newTodo.period"
+                clearable
+                          label="Period"
+                          required
+                          :items="activePeriodsArray"></v-select>
+              </v-flex>
+              <v-text-field clearable v-model="newTodo.title" label="Name"
                             required></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-select v-model="newTodo.period"
-                        label="Period"
-                        required
-                        :items="['Daily', 'Monthly', 'Yearly']"></v-select>
             </v-flex>
           </form>
         </v-container>
@@ -48,10 +50,14 @@
 
 <script>
 import { ModalEventBus } from './../../main'
+import StoreService from '../../services/StoreService'
+import _ from 'lodash'
 
 export default {
+  mixins: [StoreService],
   data() {
     return {
+      activePeriodsArray: [],
       newTodo: {
         title: '',
         period: '',
@@ -64,6 +70,19 @@ export default {
     ModalEventBus.$on('open', () => {
       this.dialog = true
     })
+
+    this.setConfig({
+      store: 'period'
+    })
+    this.loadSettings()
+    this.activePeriods = this.getSettings('activePeriods')
+
+    // Sorting active periods for dropdown
+    Object.keys(this.activePeriods).reduce((r, e) => {
+      if (this.activePeriods[e] === true) {
+        return this.activePeriodsArray.push(_.startCase(_.toLower(e)))
+      }
+    }, {})
   },
   methods: {
     submitTodo() {
